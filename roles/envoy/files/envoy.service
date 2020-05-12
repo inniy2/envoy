@@ -1,0 +1,22 @@
+[Unit]
+Description=envoy
+After=syslog.target
+After=network.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+PIDFile=/run/envoy/envoy.pid
+ExecStart=/usr/bin/envoy -c /etc/envoy/envoy.yaml
+StandardOutput=file:/var/log/envoy.log
+StandardError=file:/var/log/envoy.log
+SyslogIdentifier=envoy
+Restart=always
+TimeoutStartSec=10
+RestartSec=10
+
+
+
+[Install]
+WantedBy=multi-user.target
